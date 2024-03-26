@@ -1,4 +1,5 @@
 # Connect them dots!
+![](https://github.com/DarenKostov/connect-them-dots/blob/master/demo.gif)
 
 ## How to install:
 ```
