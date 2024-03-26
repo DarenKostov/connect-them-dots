@@ -17,13 +17,6 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include "mainClass.hxx"
 
-#include <SFML/Graphics/CircleShape.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/LineShape.hpp>
-#include <SFML/Graphics/PrimitiveType.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Window/Mouse.hpp>
 
 void MainClass::draw(){
 

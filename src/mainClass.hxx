@@ -16,8 +16,6 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <SFML/Graphics.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <sys/types.h>
 
 class MainClass{
 

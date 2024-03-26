@@ -16,7 +16,6 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "mainClass.hxx"
-#include <SFML/Window/Mouse.hpp>
 #include <iostream>
 
 void MainClass::performActions(){
