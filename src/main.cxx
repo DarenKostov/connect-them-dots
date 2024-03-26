@@ -104,16 +104,25 @@ void printHelp(){
   std::cout << "-h, --help: this help\n";
   std::cout << "-l, --licence: print the licence\n";
   std::cout << "-v, --version: prints the version\n";
+  
+  std::cout << "\nHow to use:\n";
+  std::cout << "1. Left click and hold on the center of orange circle\n";
+  std::cout << "2. Drag, while holding, to the cyan circle\n";
+  std::cout << "3. Relase the button when the center of the cyan circle is reached\n";
+  std::cout << "4. Repeat, while trying to take the shortest path\n";
 
+  std::cout << "\nData:\n";
+  std::cout << "Upon closing a \"datapoints-{UNIX TIME IN SECONDS}.csv\" file will be created";
+  std::cout << "containg information about the successful attempts to connect the 2 points";
 }
 
 
 void printVersion(){
   std::cout << "Copyright (c) Daren Kostov\n";
   std::cout << "GPLv3\n";
-  std::cout << "TEMPLATE\n";
+  std::cout << "connect-them-dots\n";
     
   //Version Major.Minor.Patch
-  std::cout << "Version 0.0.0\n";
+  std::cout << "Version 1.0.0\n";
 
 }

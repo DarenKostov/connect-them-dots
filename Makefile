@@ -9,6 +9,8 @@ TARGET= bin/connect-them-dots
 
 all: $(TARGET)
 
+install: all
+	cp bin/connect-them-dots /usr/bin/
 
 $(TARGET): $(OBJFILES)
 	@echo FINAL BINARY:
