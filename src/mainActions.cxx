@@ -16,6 +16,7 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "mainClass.hxx"
+#include <SFML/Window/Mouse.hpp>
 
 void MainClass::performActions(){
   sf::Event event;
@@ -24,6 +25,7 @@ void MainClass::performActions(){
       case sf::Event::Closed:
         window.close();
         break;
+      
       case sf::Event::Resized:
         //if screen is resized fix the views dimensions
         {
@@ -32,10 +34,27 @@ void MainClass::performActions(){
           mainView.reset(sf::FloatRect(0.f, 0.f, windowWidth, windowHeight));
         }
         break;
+      
       case sf::Event::MouseButtonPressed:
-        // initMouseCoordinates=event.
-          
+        if(hasClicked==false && event.mouseButton.button==sf::Mouse::Button::Left){
+          mouseCoordinates.push_back(window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView));
+          hasClicked=true;
+        }
         break;
+
+      case sf::Event::MouseButtonReleased:
+        if(hasClicked==true && event.mouseButton.button==sf::Mouse::Button::Left){
+          mouseCoordinates.clear();
+          hasClicked=false;
+        }
+        break;
+
+      case sf::Event::MouseMoved:
+        if(hasClicked==true){
+          mouseCoordinates.push_back(window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView));
+        }
+        break;
+
       // case blah blah:
       // / break;
 

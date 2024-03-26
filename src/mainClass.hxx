@@ -33,8 +33,9 @@ class MainClass{
     sf::Vector2f pointA;
     sf::Vector2f pointB;
     
-    //when the mouse 1st clicks, what were its coordinates?
-    sf::Vector2f initMouseCoordinates;
+    //the path of the mouse from point A to point B?
+    std::vector<sf::Vector2f> mouseCoordinates;
+  
   
     bool hasClicked;
 

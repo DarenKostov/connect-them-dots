@@ -40,6 +40,7 @@ void MainClass::draw(){
 
   sf::CircleShape circleA;
   sf::CircleShape circleB;
+  sf::CircleShape circleTest;
 
   circleA.setFillColor(sf::Color::Transparent);
   circleB.setFillColor(sf::Color::Transparent);
@@ -59,6 +60,17 @@ void MainClass::draw(){
   window.draw(circleA);
   window.draw(circleB);
 
+
+  circleTest.setFillColor(sf::Color::White);
+  circleTest.setRadius(5);
+
+  for(auto& coordinate : mouseCoordinates){
+    
+    circleTest.setPosition(coordinate);
+    window.draw(circleTest);
+  
+  }
+  
 
   window.display();
   
