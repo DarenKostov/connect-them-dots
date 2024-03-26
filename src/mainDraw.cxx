@@ -20,6 +20,7 @@ If not, see <https://www.gnu.org/licenses/>.
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/LineShape.hpp>
+#include <SFML/Graphics/PrimitiveType.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -64,12 +65,15 @@ void MainClass::draw(){
 
   if(mouseCoordinates.size()>=2){
     for(auto coordinate=mouseCoordinates.begin()+1; coordinate!=mouseCoordinates.end(); coordinate++){
-      sf::LineShape line;
 
-      line.setPoints(*coordinate, *(coordinate-1));
-      // line.setFillColor(sf::Color(255, (((coordinate-mouseCoordinates.begin())*1.0)/mouseCoordinates.size())*255, 255, 255));
-      line.setFillColor(sf::Color::White);
-      window.draw(line);
+      sf::Vertex line[2];
+
+      line[0].position=*coordinate;
+      line[1].position=*(coordinate-1);
+      line[0].color=sf::Color::White;
+      line[1].color=sf::Color::White;
+
+      window.draw(line, 2, sf::PrimitiveType::LineStrip);
   
     }
   }
