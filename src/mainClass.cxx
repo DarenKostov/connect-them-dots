@@ -17,6 +17,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include "mainClass.hxx"
 #include <SFML/System/Vector2.hpp>
+#include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
@@ -33,6 +34,11 @@ MainClass::MainClass(){
   hasClicked=false;
 
   srand(time(NULL));
+  
+
+  maxPointDistance=200;
+  minPointDistance=100;
+  circleRadius=10;
   
   randomizePoints();
 
@@ -77,14 +83,6 @@ void MainClass::randomizePoints(double minDistance, double maxDistance){
 
     pointB.x=rand()%window.getSize().x;
     pointB.y=rand()%window.getSize().y;
-
-
-    std::cout << pointA.x << "\n";
-    std::cout << pointA.y << "\n";
-    std::cout << "++++\n";
-    std::cout << pointB.x << "\n";
-    std::cout << pointB.y << "\n";
-    std::cout << "====\n";
     
     distance=(pointA.x-pointB.x)*(pointA.x-pointB.x)+(pointA.y-pointB.y)*(pointA.y-pointB.y);
 
@@ -93,7 +91,7 @@ void MainClass::randomizePoints(double minDistance, double maxDistance){
 }
 
 void MainClass::randomizePoints(){
-  randomizePoints(100, 200);
+  randomizePoints(minPointDistance, maxPointDistance);
 }
 
 double MainClass::getAverageDistance(){
@@ -164,4 +162,24 @@ void MainClass::recordDataPoint(){
   dataPoints.push_back(newDataPoint);
 
 }
+
+bool MainClass::areCirclesColliding(sf::Vector2f coordA, double radiusA, sf::Vector2f coordB, double radiusB){
+
+  //lets save computation;
+  double neededDistance{(radiusA+radiusB)*(radiusA+radiusB)};
+
+  double actualDistance{
+    (coordA.x-coordB.x)*(coordA.x-coordB.x)+
+    (coordA.y-coordB.y)*(coordA.y-coordB.y)
+  };
+  
+  if(actualDistance<=neededDistance){
+    return true;
+  }
+
+  return false;
+  
+}
+
+
 

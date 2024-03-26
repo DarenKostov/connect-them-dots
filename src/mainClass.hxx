@@ -55,7 +55,10 @@ class MainClass{
     bool hasClicked;
 
 
-    //data that is changable
+    //data that is change-able
+    double maxPointDistance;
+    double minPointDistance;
+    double circleRadius;
 
   public:
 
@@ -90,6 +93,7 @@ class MainClass{
     //record the current data point to our records
     void recordDataPoint();
 
-    bool 
+    //chest if 2 circles are colliding, give coordinate and radius;
+    bool areCirclesColliding(sf::Vector2f, double, sf::Vector2f, double);
 
 };

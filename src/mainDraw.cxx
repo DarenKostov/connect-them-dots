@@ -29,10 +29,6 @@ void MainClass::draw(){
   window.clear();
   window.setView(mainView);
   
-  sf::RectangleShape rect(sf::Vector2f(30, 30));
-  rect.setFillColor(sf::Color(255, 255, 255, 255));
-  rect.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView));
-  window.draw(rect);
 
 
 
@@ -47,13 +43,16 @@ void MainClass::draw(){
 
   circleA.setOutlineThickness(5);
   circleB.setOutlineThickness(5);
-  
-  circleA.setRadius(10);
-  circleB.setRadius(10);
+
+  circleA.setRadius(circleRadius);
+  circleB.setRadius(circleRadius);
+
+  circleA.setOrigin(circleA.getRadius(), circleA.getRadius());
+  circleB.setOrigin(circleB.getRadius(), circleB.getRadius());
 
   circleA.setPosition(pointA);
   circleB.setPosition(pointB);
-  
+ 
   window.draw(circleA);
   window.draw(circleB);
 
