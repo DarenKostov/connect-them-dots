@@ -19,6 +19,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/LineShape.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -40,7 +41,6 @@ void MainClass::draw(){
 
   sf::CircleShape circleA;
   sf::CircleShape circleB;
-  sf::CircleShape circleTest;
 
   circleA.setFillColor(sf::Color::Transparent);
   circleB.setFillColor(sf::Color::Transparent);
@@ -61,14 +61,16 @@ void MainClass::draw(){
   window.draw(circleB);
 
 
-  circleTest.setFillColor(sf::Color::White);
-  circleTest.setRadius(5);
 
-  for(auto& coordinate : mouseCoordinates){
-    
-    circleTest.setPosition(coordinate);
-    window.draw(circleTest);
+  if(mouseCoordinates.size()>=2){
+    for(auto coordinate=mouseCoordinates.begin()+1; coordinate!=mouseCoordinates.end(); coordinate++){
+      sf::LineShape line;
+
+      line.setPoints(*coordinate, *(coordinate-1));
+      line.setFillColor(sf::Color::White);
+      window.draw(line);
   
+    }
   }
   
 
