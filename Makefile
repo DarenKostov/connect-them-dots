@@ -1,7 +1,7 @@
 # https://www.cs.colostate.edu/~cs157/LectureMakefile.pdf
 
 CXX= g++
-CXXFLAGS= -std=c++17
+CXXFLAGS= -std=c++17 -O3
 SFMLFLAGS= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network -lsfml-audio
 OBJFILES= bin/main.o bin/licence.o bin/mainClass.o bin/mainDraw.o bin/mainUpdate.o bin/mainActions.o
 TARGET= bin/connect-them-dots
