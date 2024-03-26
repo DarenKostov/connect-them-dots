@@ -98,7 +98,7 @@ void MainClass::randomizePoints(){
   randomizePoints(minPointDistance, maxPointDistance);
 }
 
-double MainClass::getAverageDistance(){
+double MainClass::getDistanceError(){
   double output{0};
 
   
@@ -125,8 +125,11 @@ void MainClass::recordDataPoint(){
 
   dataPoint newDataPoint;
 
-  //record average distance
-  newDataPoint.averageDistance=getAverageDistance();
+  //record the total distance error
+  newDataPoint.totalDistanceError=getDistanceError();
+
+  //record the average distance error
+  newDataPoint.averageDistanceError=newDataPoint.totalDistanceError/mouseCoordinates.size();
 
   //record the points inputted
   newDataPoint.inputtedPointsCount=mouseCoordinates.size();
@@ -139,30 +142,49 @@ void MainClass::recordDataPoint(){
     (pointA.x-pointB.x)*(pointA.x-pointB.x)+
     (pointA.y-pointB.y)*(pointA.y-pointB.y));
 
+
   //record the users shortest path
+  newDataPoint.inputtedPathLength=0;
   if(mouseCoordinates.size()>=2){
     for(auto coordinate=mouseCoordinates.begin()+1; coordinate!=mouseCoordinates.end(); coordinate++){
 
-      sf::Vector2f& coordA{*(coordinate+1)};
-      sf::Vector2f& coordB{*(coordinate)};
+      sf::Vector2f coordA{*(coordinate-1)};
+      sf::Vector2f coordB{*(coordinate)};
       
       newDataPoint.inputtedPathLength+=std::sqrt(
         (coordA.x-coordB.x)*(coordA.x-coordB.x)+
         (coordA.y-coordB.y)*(coordA.y-coordB.y));
 
+
+
     }
+
+
+    
   }else{
     //how did we get here??????
     //if no points inputted the shortest path would be 0
     newDataPoint.inputtedPathLength=0;
   }
 
+  newDataPoint.percentErrorInLength=((
+    newDataPoint.inputtedPathLength-
+    newDataPoint.shortestPathLength)/
+    newDataPoint.shortestPathLength)*
+    100;
+
+  if(newDataPoint.percentErrorInLength<0){
+    //how did we get here???
+    //the shortest path should be the shortest path
+    newDataPoint.percentErrorInLength=-newDataPoint.percentErrorInLength;
+  }
   
   newDataPoint.pointAX=pointA.x;
   newDataPoint.pointAY=pointA.y;
   newDataPoint.pointBX=pointB.x;
   newDataPoint.pointBY=pointB.y;
 
+  // std::cout << newDataPoint.inputtedPathLength << "====\n";
   dataPoints.push_back(newDataPoint);
 
 }
@@ -194,14 +216,16 @@ void MainClass::saveDataPoints(){
 
   file.open(filePath);
   
-  file << "averageDistance,inputtedPointsCount,timeMiliseconds,shortestPathLength,inputtedPathLength,pointAX,pointAY,pointBX,pointBY\n";
+  file << "totalDistanceError,averageDistanceError,inputtedPointsCount,timeMiliseconds,shortestPathLength,inputtedPathLength,percentErrorInLength,pointAX,pointAY,pointBX,pointBY\n";
 
   for(auto& dataPoint : dataPoints){
-    file << dataPoint.averageDistance << ",";
-    file << dataPoint.inputtedPointsCount<< ",";
-    file << dataPoint.timeMiliseconds<< ",";
-    file << dataPoint.shortestPathLength<< ",";
-    file << dataPoint.inputtedPathLength<< ",";
+    file << dataPoint.totalDistanceError<< ",";
+    file << dataPoint.averageDistanceError<< ",";
+    file << dataPoint.inputtedPointsCount << ",";
+    file << dataPoint.timeMiliseconds << ",";
+    file << dataPoint.shortestPathLength << ",";
+    file << dataPoint.inputtedPathLength << ",";
+    file << dataPoint.percentErrorInLength << ",";
     file << dataPoint.pointAX << ",";
     file << dataPoint.pointAY << ",";
     file << dataPoint.pointBX << ",";

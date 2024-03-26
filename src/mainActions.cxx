@@ -56,11 +56,8 @@ void MainClass::performActions(){
             // std::cout << "average distance: " << getAverageDistance() << "\n";
          
             recordDataPoint();
-            std::cout << "error: " << (
-              (dataPoints.back().inputtedPathLength-
-              dataPoints.back().shortestPathLength)/
-              dataPoints.back().shortestPathLength
-            )<< "\n";
+            std::cout << "length % error: " << dataPoints.back().percentErrorInLength << "\n";
+            std::cout << "distance error: " << dataPoints.back().totalDistanceError<< "\n";
           
             randomizePoints();
           }

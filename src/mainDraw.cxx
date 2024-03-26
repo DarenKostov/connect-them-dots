@@ -63,6 +63,7 @@ void MainClass::draw(){
       sf::LineShape line;
 
       line.setPoints(*coordinate, *(coordinate-1));
+      // line.setFillColor(sf::Color(255, (((coordinate-mouseCoordinates.begin())*1.0)/mouseCoordinates.size())*255, 255, 255));
       line.setFillColor(sf::Color::White);
       window.draw(line);
   

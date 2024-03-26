@@ -25,11 +25,13 @@ class MainClass{
     //variables:
 
     struct dataPoint{
-      double averageDistance;
+      double totalDistanceError;
+      double averageDistanceError;
       size_t inputtedPointsCount;
       uint32_t timeMiliseconds;
       double shortestPathLength;
       double inputtedPathLength;
+      double percentErrorInLength;
       double pointAX;
       double pointAY;
       double pointBX;
@@ -88,8 +90,8 @@ class MainClass{
     void randomizePoints(double, double);
     void randomizePoints();
 
-    //calculates arnd returns the avregae distance from the inputted path from the shorted path
-    double getAverageDistance();
+    //calculates arnd returns the distance from the inputted path from the shorted path
+    double getDistanceError();
 
     //record the current data point to our records
     void recordDataPoint();
