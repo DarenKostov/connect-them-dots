@@ -36,9 +36,6 @@ void MainClass::draw(){
 
 
 
-
-
-
   sf::CircleShape circleA;
   sf::CircleShape circleB;
 

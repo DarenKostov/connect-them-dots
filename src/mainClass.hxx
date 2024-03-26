@@ -17,12 +17,24 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <sys/types.h>
 
 class MainClass{
 
   private:
     //variables:
 
+    struct dataPoint{
+      double averageDistance;
+      size_t inputtedPointCount;
+      uint32_t timeMiliseconds;
+      double shortestPathLength;
+      double inputtedPathLength;
+      double pointAX;
+      double pointAY;
+      double pointBX;
+      double pointBY;
+    };
 
     //sfml stuff
     sf::RenderWindow window;
@@ -36,9 +48,14 @@ class MainClass{
     //the path of the mouse from point A to point B?
     std::vector<sf::Vector2f> mouseCoordinates;
   
+    //how well the user did each time they inputted a path and other data
+    std::vector<dataPoint> dataPoints;
   
+    //did the mouse click?
     bool hasClicked;
 
+
+    //data that is changable
 
   public:
 
@@ -65,5 +82,14 @@ class MainClass{
 
     //sets the locations of the point to random coordinates, give it the min and max distance
     void randomizePoints(double, double);
+    void randomizePoints();
+
+    //calculates arnd returns the avregae distance from the inputted path from the shorted path
+    double getAverageDistance();
+
+    //record the current data point to our records
+    void recordDataPoint();
+
+    bool 
 
 };

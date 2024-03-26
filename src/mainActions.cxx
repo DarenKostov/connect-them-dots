@@ -17,6 +17,7 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include "mainClass.hxx"
 #include <SFML/Window/Mouse.hpp>
+#include <iostream>
 
 void MainClass::performActions(){
   sf::Event event;
@@ -44,8 +45,11 @@ void MainClass::performActions(){
 
       case sf::Event::MouseButtonReleased:
         if(hasClicked==true && event.mouseButton.button==sf::Mouse::Button::Left){
-          mouseCoordinates.clear();
+          std::cout << "average distance: " << getAverageDistance() << "\n";
+          recordDataPoint();
+          randomizePoints();
           hasClicked=false;
+          mouseCoordinates.clear();
         }
         break;
 

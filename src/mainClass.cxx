@@ -16,6 +16,8 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "mainClass.hxx"
+#include <SFML/System/Vector2.hpp>
+#include <cmath>
 #include <cstdlib>
 #include <iostream>
 #include <unistd.h>
@@ -32,7 +34,7 @@ MainClass::MainClass(){
 
   srand(time(NULL));
   
-  randomizePoints(100, 200);
+  randomizePoints();
 
   
 }
@@ -88,6 +90,78 @@ void MainClass::randomizePoints(double minDistance, double maxDistance){
 
   }while(distance<minDistance || distance>maxDistance);
 
+}
+
+void MainClass::randomizePoints(){
+  randomizePoints(100, 200);
+}
+
+double MainClass::getAverageDistance(){
+  double output{0};
+
   
+  for(auto& coordinate : mouseCoordinates){
+
+    // https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
+    double distance{0};
+    distance=(pointB.x-pointA.x)*(pointA.y-coordinate.y);
+    distance-=(pointB.y-pointA.y)*(pointA.x-coordinate.x);
+    distance=std::abs(distance);
+    distance/=std::sqrt((pointB.x-pointA.x)*(pointB.x-pointA.x)+(pointB.y-pointA.y)*(pointB.y-pointA.y));
+  
+    output+=distance;
+    
+  }
+
+  output/=mouseCoordinates.size();
+
+  return output;
+}
+
+
+void MainClass::recordDataPoint(){
+
+  dataPoint newDataPoint;
+
+  //record average distance
+  newDataPoint.averageDistance=getAverageDistance();
+
+  //record the points inputted
+  newDataPoint.inputtedPointCount=mouseCoordinates.size();
+
+  //record how much time this whole thing took
+  newDataPoint.timeMiliseconds=clock.getElapsedTime().asMilliseconds();
+
+  //record the actual shortest path
+  newDataPoint.shortestPathLength=std::sqrt(
+    (pointA.x-pointB.x)*(pointA.x-pointB.x)+
+    (pointA.y-pointB.y)*(pointA.y-pointB.y));
+
+  //record the users shortest path
+  if(mouseCoordinates.size()>=2){
+    for(auto coordinate=mouseCoordinates.begin()+1; coordinate!=mouseCoordinates.end(); coordinate++){
+
+      sf::Vector2f& coordA{*(coordinate+1)};
+      sf::Vector2f& coordB{*(coordinate)};
+      
+      newDataPoint.inputtedPathLength+=std::sqrt(
+        (coordA.x-coordB.x)*(coordA.x-coordB.x)+
+        (coordA.y-coordB.y)*(coordA.y-coordB.y));
+
+    }
+  }else{
+    //how did we get here??????
+    //if no points inputted the shortest path would be 0
+    newDataPoint.inputtedPathLength=0;
+  }
+
+  
+  newDataPoint.pointAX=pointA.x;
+  newDataPoint.pointAY=pointA.y;
+  newDataPoint.pointBX=pointB.x;
+  newDataPoint.pointBY=pointB.y;
+
+  dataPoints.push_back(newDataPoint);
 
 }
+
