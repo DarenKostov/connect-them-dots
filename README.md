@@ -23,7 +23,8 @@ connect-them-dots
 Should work on touch screen if the touchscreen outputs left click when pressing
 
 ## Data
-When the program is closed it will create a `datapoints-{UNIX TIME IN SECONDS}.csv` file.
+When the program is closed it will create a `datapoints-{UNIX TIME IN SECONDS}.csv` file
+in the folder the program was executed in.
 
 The file contains information about each successful attempt of connecting 2 dots.
 
