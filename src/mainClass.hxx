@@ -26,7 +26,7 @@ class MainClass{
 
     struct dataPoint{
       double averageDistance;
-      size_t inputtedPointCount;
+      size_t inputtedPointsCount;
       uint32_t timeMiliseconds;
       double shortestPathLength;
       double inputtedPathLength;
@@ -59,6 +59,7 @@ class MainClass{
     double maxPointDistance;
     double minPointDistance;
     double circleRadius;
+    int PointDistanceFromBorder;
 
   public:
 
@@ -96,4 +97,7 @@ class MainClass{
     //chest if 2 circles are colliding, give coordinate and radius;
     bool areCirclesColliding(sf::Vector2f, double, sf::Vector2f, double);
 
+    //saves the datapoints to "datapoints-{UNIX TIME in SECONDS}.csv"
+    void saveDataPoints();
+  
 };

@@ -41,6 +41,7 @@ void MainClass::performActions(){
           auto initMouseCoords{window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView)};
           if(areCirclesColliding(pointA, circleRadius, initMouseCoords, 0)){
             mouseCoordinates.push_back(initMouseCoords);
+            clock.restart();
             hasClicked=true;
           }
         }
@@ -52,8 +53,15 @@ void MainClass::performActions(){
           //only record & reset if we actually connected the 2 points
           auto finalMouseCoords{window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView)};
           if(areCirclesColliding(pointB, circleRadius, finalMouseCoords, 0)){
-            std::cout << "average distance: " << getAverageDistance() << "\n";
+            // std::cout << "average distance: " << getAverageDistance() << "\n";
+         
             recordDataPoint();
+            std::cout << "error: " << (
+              (dataPoints.back().inputtedPathLength-
+              dataPoints.back().shortestPathLength)/
+              dataPoints.back().shortestPathLength
+            )<< "\n";
+          
             randomizePoints();
           }
 

@@ -17,10 +17,11 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include "mainClass.hxx"
 #include <SFML/System/Vector2.hpp>
-#include <algorithm>
 #include <cmath>
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
+#include <string>
 #include <unistd.h>
 
 
@@ -33,11 +34,12 @@ MainClass::MainClass(){
 
   hasClicked=false;
 
-  srand(time(NULL));
+  srand(std::time(nullptr));
   
 
-  maxPointDistance=200;
+  maxPointDistance=500;
   minPointDistance=100;
+  PointDistanceFromBorder=100;
   circleRadius=10;
   
   randomizePoints();
@@ -65,6 +67,8 @@ void MainClass::startProgram(){
 
   }
 
+  saveDataPoints();
+
 
 }
 
@@ -78,11 +82,11 @@ void MainClass::randomizePoints(double minDistance, double maxDistance){
   maxDistance*=maxDistance;
 
   do{
-    pointA.x=rand()%window.getSize().x;
-    pointA.y=rand()%window.getSize().y;
+    pointA.x=PointDistanceFromBorder+(rand()%(window.getSize().x-PointDistanceFromBorder*2));    
+    pointA.y=PointDistanceFromBorder+(rand()%(window.getSize().y-PointDistanceFromBorder*2));    
 
-    pointB.x=rand()%window.getSize().x;
-    pointB.y=rand()%window.getSize().y;
+    pointB.x=PointDistanceFromBorder+(rand()%(window.getSize().x-PointDistanceFromBorder*2));    
+    pointB.y=PointDistanceFromBorder+(rand()%(window.getSize().y-PointDistanceFromBorder*2));    
     
     distance=(pointA.x-pointB.x)*(pointA.x-pointB.x)+(pointA.y-pointB.y)*(pointA.y-pointB.y);
 
@@ -125,7 +129,7 @@ void MainClass::recordDataPoint(){
   newDataPoint.averageDistance=getAverageDistance();
 
   //record the points inputted
-  newDataPoint.inputtedPointCount=mouseCoordinates.size();
+  newDataPoint.inputtedPointsCount=mouseCoordinates.size();
 
   //record how much time this whole thing took
   newDataPoint.timeMiliseconds=clock.getElapsedTime().asMilliseconds();
@@ -181,5 +185,30 @@ bool MainClass::areCirclesColliding(sf::Vector2f coordA, double radiusA, sf::Vec
   
 }
 
+void MainClass::saveDataPoints(){
+  std::ofstream file;
+  
+  std::string filePath{"datapoints-"};
+  filePath+=std::to_string(std::time(nullptr));
+  filePath+=".csv";
+
+  file.open(filePath);
+  
+  file << "averageDistance,inputtedPointsCount,timeMiliseconds,shortestPathLength,inputtedPathLength,pointAX,pointAY,pointBX,pointBY\n";
+
+  for(auto& dataPoint : dataPoints){
+    file << dataPoint.averageDistance << ",";
+    file << dataPoint.inputtedPointsCount<< ",";
+    file << dataPoint.timeMiliseconds<< ",";
+    file << dataPoint.shortestPathLength<< ",";
+    file << dataPoint.inputtedPathLength<< ",";
+    file << dataPoint.pointAX << ",";
+    file << dataPoint.pointAY << ",";
+    file << dataPoint.pointBX << ",";
+    file << dataPoint.pointBY << "\n";
+  }
+
+  file.close();
+}
 
 
