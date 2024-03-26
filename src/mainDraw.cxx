@@ -17,6 +17,8 @@ If not, see <https://www.gnu.org/licenses/>.
 
 #include "mainClass.hxx"
 
+#include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -30,6 +32,33 @@ void MainClass::draw(){
   rect.setFillColor(sf::Color(255, 255, 255, 255));
   rect.setPosition(window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView));
   window.draw(rect);
+
+
+
+
+
+
+  sf::CircleShape circleA;
+  sf::CircleShape circleB;
+
+  circleA.setFillColor(sf::Color::Transparent);
+  circleB.setFillColor(sf::Color::Transparent);
+
+  circleA.setOutlineColor(sf::Color(0xff8800ff));
+  circleB.setOutlineColor(sf::Color(0x00ffffff));
+
+  circleA.setOutlineThickness(5);
+  circleB.setOutlineThickness(5);
+  
+  circleA.setRadius(10);
+  circleB.setRadius(10);
+
+  circleA.setPosition(pointA);
+  circleB.setPosition(pointB);
+  
+  window.draw(circleA);
+  window.draw(circleB);
+
 
   window.display();
   

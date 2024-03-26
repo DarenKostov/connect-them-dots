@@ -32,8 +32,13 @@ void MainClass::performActions(){
           mainView.reset(sf::FloatRect(0.f, 0.f, windowWidth, windowHeight));
         }
         break;
+      case sf::Event::MouseButtonPressed:
+        // initMouseCoordinates=event.
+          
+        break;
       // case blah blah:
       // / break;
+
     }
     
   }

@@ -16,6 +16,7 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
 
 class MainClass{
 
@@ -28,8 +29,16 @@ class MainClass{
     sf::View mainView;
     sf::Clock clock;
 
+
+    sf::Vector2f pointA;
+    sf::Vector2f pointB;
     
-    
+    //when the mouse 1st clicks, what were its coordinates?
+    sf::Vector2f initMouseCoordinates;
+  
+    bool hasClicked;
+
+
   public:
 
     //constructor, like a atSTartUp function
@@ -52,5 +61,8 @@ class MainClass{
 
     //this draws he program, like update but for drawing
     void draw();
+
+    //sets the locations of the point to random coordinates, give it the min and max distance
+    void randomizePoints(double, double);
 
 };

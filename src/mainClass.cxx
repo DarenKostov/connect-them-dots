@@ -16,18 +16,23 @@ If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "mainClass.hxx"
-#include <charconv>
+#include <cstdlib>
+#include <iostream>
 #include <unistd.h>
-#include <stdlib.h>
 
 
 MainClass::MainClass(){
-  window.create(sf::VideoMode(123, 123), "WXYZ");
+  window.create(sf::VideoMode(123, 123), "connect-them-dots");
   mainView=sf::View(sf::FloatRect(0, 0, 123, 123));
   mainView.setViewport(sf::FloatRect(0, 0, 1, 1));
   window.setView(mainView);
   window.setVerticalSyncEnabled(true);
 
+  hasClicked=false;
+
+  srand(time(NULL));
+  
+  randomizePoints(100, 200);
 
   
 }
@@ -56,3 +61,33 @@ void MainClass::startProgram(){
 }
 
 
+void MainClass::randomizePoints(double minDistance, double maxDistance){
+
+  double distance{0};
+
+  //lets save some computation
+  minDistance*=minDistance;
+  maxDistance*=maxDistance;
+
+  do{
+    pointA.x=rand()%window.getSize().x;
+    pointA.y=rand()%window.getSize().y;
+
+    pointB.x=rand()%window.getSize().x;
+    pointB.y=rand()%window.getSize().y;
+
+
+    std::cout << pointA.x << "\n";
+    std::cout << pointA.y << "\n";
+    std::cout << "++++\n";
+    std::cout << pointB.x << "\n";
+    std::cout << pointB.y << "\n";
+    std::cout << "====\n";
+    
+    distance=(pointA.x-pointB.x)*(pointA.x-pointB.x)+(pointA.y-pointB.y)*(pointA.y-pointB.y);
+
+  }while(distance<minDistance || distance>maxDistance);
+
+  
+
+}
