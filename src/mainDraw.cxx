@@ -32,31 +32,35 @@ void MainClass::draw(){
 
 
 
-  sf::CircleShape circleA;
-  sf::CircleShape circleB;
+  sf::CircleShape circle;
 
-  circleA.setFillColor(sf::Color::Transparent);
-  circleB.setFillColor(sf::Color::Transparent);
+  circle.setFillColor(sf::Color::Transparent);
 
-  circleA.setOutlineColor(sf::Color(0xff8800ff));
-  circleB.setOutlineColor(sf::Color(0x00ffffff));
+  circle.setOutlineThickness(2);
+  circle.setRadius(circleRadius);
+  circle.setOrigin(circle.getRadius(), circle.getRadius());
 
-  circleA.setOutlineThickness(5);
-  circleB.setOutlineThickness(5);
+  circle.setOutlineColor(sf::Color(0xff8800ff));
+  circle.setPosition(pointA);
+  window.draw(circle);
 
-  circleA.setRadius(circleRadius);
-  circleB.setRadius(circleRadius);
-
-  circleA.setOrigin(circleA.getRadius(), circleA.getRadius());
-  circleB.setOrigin(circleB.getRadius(), circleB.getRadius());
-
-  circleA.setPosition(pointA);
-  circleB.setPosition(pointB);
- 
-  window.draw(circleA);
-  window.draw(circleB);
+  circle.setOutlineColor(sf::Color(0x00ffffff));
+  circle.setPosition(pointB);
+  window.draw(circle);
 
 
+
+  circle.setOutlineThickness(1);
+  circle.setRadius(circleRadius/2);
+  circle.setOrigin(circle.getRadius(), circle.getRadius());
+  
+  circle.setOutlineColor(sf::Color(0xff880033));
+  circle.setPosition(pointA);
+  window.draw(circle);
+
+  circle.setOutlineColor(sf::Color(0x00ffff33));
+  circle.setPosition(pointB);
+  window.draw(circle);
 
   if(mouseCoordinates.size()>=2){
     for(auto coordinate=mouseCoordinates.begin()+1; coordinate!=mouseCoordinates.end(); coordinate++){

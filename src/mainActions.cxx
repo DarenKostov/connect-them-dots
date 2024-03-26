@@ -33,6 +33,7 @@ void MainClass::performActions(){
           int windowWidth=event.size.width;
           int windowHeight=event.size.height;
           mainView.reset(sf::FloatRect(0.f, 0.f, windowWidth, windowHeight));
+          // draw(); //DRAW CALL
         }
         break;
       
@@ -58,18 +59,21 @@ void MainClass::performActions(){
             recordDataPoint();
             std::cout << "length % error: " << dataPoints.back().percentErrorInLength << "\n";
             std::cout << "distance error: " << dataPoints.back().totalDistanceError<< "\n";
+            std::cout << "============\n";
           
             randomizePoints();
           }
 
           hasClicked=false;
           mouseCoordinates.clear();
+          // draw(); //DRAW CALL
         }
         break;
 
       case sf::Event::MouseMoved:
         if(hasClicked==true){
           mouseCoordinates.push_back(window.mapPixelToCoords(sf::Mouse::getPosition(window), mainView));
+          // draw(); //DRAW CALL
         }
         break;
 

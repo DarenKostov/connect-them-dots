@@ -55,16 +55,15 @@ void MainClass::startProgram(){
 
   clock.restart();
 
+
   while(window.isOpen()){
 
     //drawing 66666-15fps 33333-30fps 16666-60fps 11111-90fps 8333-120fps 4166-240fps 
     usleep(16666);
 
     performActions();
-    update();
+    // update();
     draw();
-
-
   }
 
   saveDataPoints();
